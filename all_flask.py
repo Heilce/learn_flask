@@ -8,13 +8,18 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import make_response
 from flask import redirect
 from flask import abort
-from model import app, db, User
+from model import User
+from exts import db
 from flask import flash
+import config
+
+app = Flask(__name__)
+app.config.from_object(config)
+db.init_app(app)
 
 
 @app.route('/', methods=['get', 'post'])
 def login(name=None):
-    print("******")
     form1 = MyForm()
     form2 = Register()
     if form1.validate_on_submit():
